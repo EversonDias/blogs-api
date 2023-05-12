@@ -24,7 +24,17 @@ const createUser = async (payload) => {
   }
 };
 
+const getAllUser = async () => {
+  try {
+    const result = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+    return { type: status.Ok, message: result };
+  } catch (error) {
+     return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   handleLogin,
   createUser,
+  getAllUser,
 };
