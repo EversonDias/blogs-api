@@ -1,4 +1,4 @@
-const { BadRequest } = require('../utils/statusHTTP');
+const { BadRequest } = require('../utils/status');
 
 const isLoginValidade = (req, res, next) => {
   const login = req.body;
