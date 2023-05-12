@@ -3,4 +3,5 @@ module.exports = {
   Ok: 200,
   Conflict: 409,
   Created: 201,
+  Unauthorized: 401,
 };

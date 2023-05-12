@@ -5,7 +5,7 @@ const handleLogin = async (email) => {
   try {
     const result = await User.findOne({ where: { email } });
     if (result !== null) {
-      const token = JTW.generateToken({ email });
+      const token = JTW.generateToken({ data: email });
       return { type: status.Ok, message: { token } };
     }
     return { type: status.BadRequest, message: { message: 'Invalid fields' } };
@@ -17,7 +17,7 @@ const handleLogin = async (email) => {
 const createUser = async (payload) => {
   try {
     await User.create(payload);
-    const token = JTW.generateToken({ email: payload.email });
+    const token = JTW.generateToken({ data: payload.email });
     return { type: status.Created, message: { token } };
   } catch (error) {
     return { type: status.Conflict, message: { message: 'User already registered' } };
