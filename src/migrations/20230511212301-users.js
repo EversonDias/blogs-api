@@ -27,6 +27,14 @@ module.exports = {
         image: {
           allowNull: false,
           type: Sequelize.STRING,
+        },
+        created_at: {
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.fn('now'),
+        },
+        updated_at: {
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.fn('now'),
         }
       }
       );
