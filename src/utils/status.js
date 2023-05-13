@@ -4,4 +4,5 @@ module.exports = {
   Conflict: 409,
   Created: 201,
   Unauthorized: 401,
+  NotFound: 404,
 };

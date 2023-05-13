@@ -33,8 +33,23 @@ const getAllUser = async () => {
   }
 };
 
+const getUserId = async (id) => {
+  try {
+    const result = await User.findOne({ 
+      where: { id },
+      attributes: ['id', 'displayName', 'email', 'image'] });
+      if (result === null) {
+        return { type: status.NotFound, message: { message: 'User does not exist' } }; 
+      }
+    return { type: status.Ok, message: result };
+  } catch (error) {
+    return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   handleLogin,
   createUser,
   getAllUser,
+  getUserId,
 };
