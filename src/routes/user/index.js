@@ -6,9 +6,8 @@ const { isToken } = require('../../middleware/validateToken');
 const route = express.Router();
 
 route.post('/', hasDisplayName, hasPassword, hasEmail, userController.createUser);
-
 route.get('/', isToken, userController.getAllUser);
-
 route.get('/:id', isToken, userController.getUserId);
+route.delete('/me', isToken, userController.deleteUser);
 
 module.exports = route;

@@ -47,9 +47,20 @@ const getUserId = async (id) => {
   }
 };
 
+const deleteUser = async (token) => {
+  try {
+    const { data: { id } } = JTW.decoded(token);
+    await User.destroy({ where: { id } });
+    return { type: status.NoContent };
+  } catch (error) {
+    return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   handleLogin,
   createUser,
   getAllUser,
   getUserId,
+  deleteUser,
 };
