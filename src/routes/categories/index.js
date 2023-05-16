@@ -1,11 +1,11 @@
 const express = require('express');
-const { createCategory, getAllCategory } = require('../../controllers/categoryController');
+const { categoryController } = require('../../controllers');
 const { isToken } = require('../../middleware/validateToken');
 const { hasKeyName } = require('../../middleware/validateCategory');
 
 const route = express.Router();
 
-route.post('/', isToken, hasKeyName, createCategory);
-route.get('/', isToken, getAllCategory);
+route.post('/', isToken, hasKeyName, categoryController.createCategory);
+route.get('/', isToken, categoryController.getAllCategory);
 
 module.exports = route;

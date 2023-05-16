@@ -17,12 +17,10 @@ const newPost = async ({ token, post: { title, content, categoryIds } }) => {
     }
 };
 
-const getAllPost = async (token) => {
+const getAllPost = async () => {
   try {
-    const { data: { id } } = JTW.decoded(token);
     const result = await BlogPost
       .findAll({
-        where: { id },
         include: [
         { model: User, as: 'user', attributes: { exclude: 'password' } },
         { model: Category, as: 'categories' }] });
@@ -32,7 +30,25 @@ const getAllPost = async (token) => {
   }
 };
 
+const getPostId = async (id) => {
+  try {
+    const result = await BlogPost.findOne({
+      where: { id },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories' }],
+    });
+    if (result === null) {
+      return { type: status.NotFound, message: { message: 'Post does not exist' } };
+    }
+    return { type: status.Ok, message: result };
+  } catch (error) {
+    return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   newPost,
   getAllPost,
+  getPostId,
 };

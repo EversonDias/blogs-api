@@ -28,7 +28,7 @@ const createUser = async (payload) => {
 
 const getAllUser = async () => {
   try {
-    const result = await User.findAll();
+    const result = await User.findAll({ attributes: { exclude: 'password' } });
     return { type: status.Ok, message: result };
   } catch (error) {
      return { type: status.BadRequest, message: error };
@@ -37,7 +37,7 @@ const getAllUser = async () => {
 
 const getUserId = async (id) => {
   try {
-    const result = await User.findOne({ where: { id } });
+    const result = await User.findOne({ where: { id }, attributes: { exclude: 'password' } });
       if (result === null) {
         return { type: status.NotFound, message: { message: 'User does not exist' } }; 
       }

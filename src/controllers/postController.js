@@ -11,13 +11,19 @@ const newPost = async (req, res) => {
   res.status(result.type).json(result.message);
 };
 
-const getAllPost = async (req, res) => {
-  const { authorization } = req.headers;
-  const result = await postServices.getAllPost(authorization);
+const getAllPost = async (_req, res) => {
+  const result = await postServices.getAllPost();
+  res.status(result.type).json(result.message);
+};
+
+const getPostId = async (req, res) => {
+  const { id } = req.params;
+  const result = await postServices.getPostId(id);
   res.status(result.type).json(result.message);
 };
 
 module.exports = {
   newPost,
   getAllPost,
+  getPostId,
 };
