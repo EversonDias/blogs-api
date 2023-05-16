@@ -5,7 +5,8 @@ const handleLogin = async (email) => {
   try {
     const result = await User.findOne({ where: { email } });
     if (result !== null) {
-      const token = JTW.generateToken({ data: email });
+      const { password: _pass, ...payloadWithoutPassword } = result.dataValues; 
+      const token = JTW.generateToken({ data: payloadWithoutPassword });
       return { type: status.Ok, message: { token } };
     }
     return { type: status.BadRequest, message: { message: 'Invalid fields' } };
@@ -16,9 +17,10 @@ const handleLogin = async (email) => {
 
 const createUser = async (payload) => {
   try {
-    await User.create(payload);
-    const token = JTW.generateToken({ data: payload.email });
-    return { type: status.Created, message: { token } };
+    const result = await User.create(payload);
+    const { password: _pass, ...payloadWithoutPassword } = result.dataValues; 
+    const token = JTW.generateToken({ data: payloadWithoutPassword });
+    return { type: status.Created, message: { token, result } };
   } catch (error) {
     return { type: status.Conflict, message: { message: 'User already registered' } };
   }
@@ -26,7 +28,7 @@ const createUser = async (payload) => {
 
 const getAllUser = async () => {
   try {
-    const result = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+    const result = await User.findAll();
     return { type: status.Ok, message: result };
   } catch (error) {
      return { type: status.BadRequest, message: error };
@@ -35,9 +37,7 @@ const getAllUser = async () => {
 
 const getUserId = async (id) => {
   try {
-    const result = await User.findOne({ 
-      where: { id },
-      attributes: ['id', 'displayName', 'email', 'image'] });
+    const result = await User.findOne({ where: { id } });
       if (result === null) {
         return { type: status.NotFound, message: { message: 'User does not exist' } }; 
       }

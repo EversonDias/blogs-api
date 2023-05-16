@@ -17,7 +17,13 @@ const verifyToken = (token) => {
   return isValidator;
 };
 
+const decoded = (token) => {
+  const result = jwt.decode(token);
+  return result;
+};
+
 module.exports = {
   generateToken,
   verifyToken,
+  decoded,
 };

@@ -12,7 +12,7 @@ const createCategory = async (newCategory) => {
 
 const getAllCategory = async () => {
   try {
-    const result = await Category.findAll({ attributes: ['id', 'name'] });
+    const result = await Category.findAll();
     return { type: status.Ok, message: result };
   } catch (error) {
     return { type: status.BadRequest, message: error };

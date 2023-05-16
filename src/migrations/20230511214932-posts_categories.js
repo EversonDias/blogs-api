@@ -26,14 +26,6 @@ module.exports = {
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
           primaryKey: true,
-        },
-        created_at: {
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.fn('now'),
-        },
-        updated_at: {
-          type: Sequelize.DATE,
-          defaultValue: Sequelize.fn('now'),
         }
       }
       );

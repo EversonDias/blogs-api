@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
+      timestamps: false,
       modelName: 'User',
       underscored: true,
       tableName: 'users',
@@ -38,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     User.hasMany(models.BlogPost, {
       foreignKey: 'userId',
-      as: 'BlogsPost',
+      as: 'BlogPost',
     });
   }
   return User;

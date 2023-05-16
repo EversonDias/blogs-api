@@ -26,15 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       published: {
         type: DataTypes.DATE,
-        allowNull: false,
       },
       updated: {
         type: DataTypes.DATE,
-        allowNull: false,
       }
     },
     {
       sequelize,
+      timestamps: false,
       modelName: 'BlogPost',
       underscored: true,
       tableName: 'blog_posts',
