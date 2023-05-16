@@ -1,8 +1,19 @@
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const { status, JTW } = require('../utils');
 
+const validateCategories = async () => {
+  const result = await Category.findAll();
+  const data = result.map(({ dataValues: { id } }) => id);
+  return data;
+};
+
 const newPost = async ({ token, post: { title, content, categoryIds } }) => {
-    try {
+  try {
+      const hasCategory = await validateCategories();
+      if (hasCategory.map((data) => !categoryIds.includes(data)).includes(true)) {
+        return { type: status.BadRequest,
+          message: { message: 'one or more "categoryIds" not found' } };
+      }
       const { data: { id } } = JTW.decoded(token);
       const payloadOfPost = { title, content, userId: id };
       const { dataValues } = await BlogPost.create(payloadOfPost);
@@ -12,8 +23,8 @@ const newPost = async ({ token, post: { title, content, categoryIds } }) => {
       const resultOfBlog = await BlogPost
         .findOne({ where: { id: dataValues.id } });
       return { type: status.Created, message: resultOfBlog };
-    } catch (error) {
-      return { type: status.Created, message: error };
+    } catch (Error) {
+      return { type: status.BadRequest, message: Error };
     }
 };
 

@@ -9,7 +9,7 @@ const hasValuesInKey = (req, res, next) => {
   next();
 };
 
-const validateCategories = async (req, res, next) => {
+const validateCategories = (req, res, next) => {
   const { categoryIds } = req.body;
   categoryIds.forEach(async (category) => {
     const result = await Category
@@ -20,6 +20,7 @@ const validateCategories = async (req, res, next) => {
       });
     }
   });
+  
   next();
 };
 
