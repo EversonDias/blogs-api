@@ -1,5 +1,5 @@
 const { BlogPost, PostCategory, User, Category } = require('../models');
-const { status, JTW, validatePost } = require('../utils');
+const { status, JTW, validatePost, search } = require('../utils');
 
 const newPost = async ({ token, post: { title, content, categoryIds } }) => {
   try {
@@ -87,10 +87,21 @@ const deletePost = async (id, token) => {
   }
 };
 
+const searchPost = async (searchedWord) => {
+  try {
+    console.log(searchedWord);
+    const result = await search.titleOrContent(searchedWord);
+    return { type: status.Ok, message: result };
+  } catch (error) {
+    return { type: status.Ok, message: error };
+  }
+};
+
 module.exports = {
   newPost,
   getAllPost,
   getPostId,
   editPost,
   deletePost,
+  searchPost,
 };

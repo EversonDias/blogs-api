@@ -5,6 +5,7 @@ const { hasValuesInKey, hasValuesInKeyTitleAndContent } = require('../../middlew
 
 const route = express.Router();
 
+route.get('/search', isToken, postController.searchPost);
 route.post('/', isToken, hasValuesInKey, postController.newPost);
 route.get('/', isToken, postController.getAllPost);
 route.get('/:id', isToken, postController.getPostId);
