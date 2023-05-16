@@ -1,4 +1,4 @@
-const { BlogPost, PostCategory } = require('../models');
+const { BlogPost, PostCategory, User, Category } = require('../models');
 const { status, JTW } = require('../utils');
 
 const newPost = async ({ token, post: { title, content, categoryIds } }) => {
@@ -17,6 +17,22 @@ const newPost = async ({ token, post: { title, content, categoryIds } }) => {
     }
 };
 
+const getAllPost = async (token) => {
+  try {
+    const { data: { id } } = JTW.decoded(token);
+    const result = await BlogPost
+      .findAll({
+        where: { id },
+        include: [
+        { model: User, as: 'user', attributes: { exclude: 'password' } },
+        { model: Category, as: 'categories' }] });
+    return { type: status.Ok, message: result };
+  } catch (error) {
+    return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   newPost,
+  getAllPost,
 };
