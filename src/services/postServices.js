@@ -55,9 +55,9 @@ const getPostId = async (id) => {
 const editPost = async (payload, id, token) => {
   try {
     const { data } = JTW.decoded(token);
-    const userId = await validatePost.isUser(id);
-    if (userId !== Number(data.id)) {
-      return { type: status.Unauthorized, message: { message: 'Unauthorized user' } };
+    const isUser = await validatePost.isUser(id, data.id);
+    if (isUser.result) {
+      return isUser;
     }
     await BlogPost.update(payload, { where: { id } });
     const result = await BlogPost.findOne({
@@ -72,9 +72,25 @@ const editPost = async (payload, id, token) => {
   }
 };
 
+const deletePost = async (id, token) => {
+  try {
+    const { data } = JTW.decoded(token);
+    console.log('data', data);
+    const isUser = await validatePost.isUser(id, data.id);
+    if (isUser.result) {
+      return isUser;
+    }
+    await BlogPost.destroy({ where: { id } });
+    return { type: status.NoContent };
+  } catch (error) {
+    return { type: status.BadRequest, message: error };
+  }
+};
+
 module.exports = {
   newPost,
   getAllPost,
   getPostId,
   editPost,
+  deletePost,
 };
