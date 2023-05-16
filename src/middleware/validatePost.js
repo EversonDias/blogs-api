@@ -24,7 +24,16 @@ const validateCategories = (req, res, next) => {
   next();
 };
 
+const hasValuesInKeyTitleAndContent = (req, res, next) => {
+  const { title, content } = req.body;
+  if (title === '' || content === '') {
+    return res.status(status.BadRequest).json({ message: 'Some required fields are missing' });
+  }
+  next();
+};
+
 module.exports = {
   hasValuesInKey,
   validateCategories,
+  hasValuesInKeyTitleAndContent,
 };
