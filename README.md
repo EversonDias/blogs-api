@@ -181,6 +181,8 @@ você precisa ter npm, node.js, docker e git instalados.
 
 renome o arquivo env.example para .env.
 
+recomendo utilizar a extensão do VSCode thunder Client.
+
 1° Clone o Projeto
 
 ```bash
