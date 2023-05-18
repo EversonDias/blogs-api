@@ -18,7 +18,7 @@
 * [Índice](#índice)
 * [Descrição do projeto](#descrição-do-projeto)
 * [Status do Projeto](#status-do-projeto)
-* [Funcionalidade do projeto](#🔨-funcionalidade-do-projeto)
+* [Funcionalidade do projeto](#-funcionalidade-do-projeto)
 * [Acesso ao Projeto](#acesso-ao-projeto)
 
 # Descrição do Projeto
