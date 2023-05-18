@@ -1,4 +1,5 @@
 # Blogs API
+![apresentação](/readme/cardProject/main.png)
 
 # Tecnologias utilizadas
 
@@ -27,6 +28,15 @@ Projeto desenvolvido na escola Trybe, neste projeto eu desenvolvi os middleware,
 esse projeto é uma api de blog, onde é possível se cadastra, fazer login, criar um post, editar, apagar e ler.
 
 projeto focado no beck-end.
+
+## fazendo login 
+![rota Login](/readme/images/rotaLogin.png)
+
+## adicionando o token
+![token](/readme/images/headersToken.png)
+
+## listando todos os usuários
+![listando users](/readme/images/getAll.png)
 
 # Status do Projeto
 
@@ -169,6 +179,8 @@ só é possível se informa o token no headers da requisição ele for valido.
 
 você precisa ter npm, node.js, docker e git instalados.
 
+renome o arquivo env.example para .env.
+
 1° Clone o Projeto
 
 ```bash
@@ -191,4 +203,18 @@ npm install
 
 ```bash
 docker-compose up -d
+```
+OBS: o docker-compose tem estar na versão 1.29.
+
+5° start e popule o banco de dados
+
+```bash
+env $(cat .env) npm run startdb
+```
+OBS: na primeira vez pode dar erro de conexão é so espera 3 minutos e tenta novamente.
+
+6° inicie o servidor
+
+```bash
+env $(cat .env) npm run dev
 ```

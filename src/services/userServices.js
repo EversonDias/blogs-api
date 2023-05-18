@@ -11,7 +11,7 @@ const handleLogin = async (email) => {
     }
     return { type: status.BadRequest, message: { message: 'Invalid fields' } };
   } catch (error) {
-    return { type: status.BadRequest, message: { message: error.message } };
+    return { type: status.BadRequest, message: { message: `message auto${error.message}` } };
   }
 };
 

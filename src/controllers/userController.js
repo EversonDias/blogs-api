@@ -1,8 +1,8 @@
 const { useServices } = require('../services');
 
 const handleLogin = async (req, res) => {
-  const user = req.body;
-  const result = await useServices.handleLogin(user.email);
+  const { email } = req.body;
+  const result = await useServices.handleLogin(email);
   res.status(result.type).json(result.message);
 };
 
